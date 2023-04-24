@@ -1,0 +1,1 @@
+from . import models , views    # it will see all files in views and model directory

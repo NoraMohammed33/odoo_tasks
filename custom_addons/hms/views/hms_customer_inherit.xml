@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id ='hms_customer_inherit' model="ir.ui.view">
+            <field name="name">Hms Customer Inherit form</field>
+            <field name="model" >res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_purchases']//group//group[@name='misc']" position="inside">
+                    <field name="customer1"/>
+                </xpath>
+            </field>
+         </record>
+    </data>
+</odoo>
