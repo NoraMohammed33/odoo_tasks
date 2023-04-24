@@ -28,9 +28,6 @@ class HmsPatient(models.Model):
     doctors = fields.Many2many("hms.doctor")
     level_logs = fields.One2many('hms.patient.log', 'patients')
 
-    _sql_constraints = [
-        ('unique_email', 'UNIQUE(email)', 'this email already exits')
-    ]
 
     @api.constrains('age')
     def check_age(self):
@@ -65,6 +62,17 @@ class HmsPatient(models.Model):
             'patients': self.id
         }
         self.env['hms.patient.log'].create(vals)
+
+    _sql_constraints = [
+        ('unique_email', 'UNIQUE(email)', 'this email already exits')
+    ]
+
+    @api.onchange('email')
+    def validate_mail(self):
+        if self.email:
+            match = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', self.email)
+        if match == None:
+            raise ValidationError('invalid email ')
 
 
 
